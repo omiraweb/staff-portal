@@ -6,6 +6,11 @@
     "name": "Faiz Khatri",
     "email": "faizkhatri00@gmail.com"
   },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
+  },
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,9 +21,12 @@
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.1",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.14",
     "@radix-ui/react-label": "^2.1.6",
+    "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.2",
+    "@radix-ui/react-tooltip": "^1.2.8",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "class-variance-authority": "^0.7.1",
@@ -32,14 +40,17 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tailwindcss": "^4.1.13",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
   }

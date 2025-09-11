@@ -1,8 +1,12 @@
 import { redirect } from "next/navigation";
-
 import { createClient } from "@/lib/supabase/server";
-import { InfoIcon } from "lucide-react";
-import { FetchDataSteps } from "@/components/tutorial/fetch-data-steps";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function ProtectedPage() {
   const supabase = await createClient();
@@ -12,5 +16,22 @@ export default async function ProtectedPage() {
     redirect("/auth/login");
   }
 
-  return <main>Protected page</main>;
+  const totalUsers = await supabase.from("profiles").select("*");
+  console.log(totalUsers);
+
+  return (
+    <div className="grid grid-cols-4 p-5">
+      <Card className="@container/card">
+        <CardHeader>
+          <CardTitle>Total Users</CardTitle>
+          <CardDescription>
+            This is the number of users Active on the platform
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-5xl font-bold">100</p>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

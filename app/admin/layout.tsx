@@ -4,6 +4,12 @@ import { AuthButton } from "@/components/auth-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import AppSidebar from "@/components/partials/app-sidebar";
 
 export default function ProtectedLayout({
   children,
@@ -11,12 +17,18 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          {children}
-        </div>
-      </div>
-    </main>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <nav className="flex items-center justify-between border-b border-b-slate-200 px-5 py-3">
+          <div className="flex items-center gap-3">
+            <SidebarTrigger />
+            <ThemeSwitcher />
+          </div>
+          <AuthButton />
+        </nav>
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
