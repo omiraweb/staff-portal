@@ -1,18 +1,31 @@
-import { ChartScatter, Home, Logs, Settings, Users } from "lucide-react";
+import {
+  Box,
+  ChartScatter,
+  Home,
+  Logs,
+  LucideIcon,
+  Settings,
+  Users,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
-// Menu items.
-const items = [
+interface NavItem {
+  title: string;
+  url: string;
+  icon?: LucideIcon;
+}
+
+const adminNav: NavItem[] = [
   {
     title: "Home",
     url: "/admin",
@@ -35,29 +48,61 @@ const items = [
   },
 ];
 
-export default function AppSidebar() {
+const hrNav: NavItem[] = [
+  {
+    title: "Home",
+    url: "/hr",
+    icon: Home,
+  },
+  {
+    title: "Employees",
+    url: "/hr/employees",
+    icon: Users,
+  },
+  {
+    title: "Settings",
+    url: "#",
+    icon: Settings,
+  },
+];
+
+const NavItem = ({ item }: { item: NavItem }) => {
+  return (
+    <SidebarMenuItem key={item.title}>
+      <SidebarMenuButton asChild>
+        <Link href={item.url}>
+          {item.icon ? <item.icon /> : <Box />}
+          <span>{item.title}</span>
+        </Link>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+};
+
+interface AppSidebarProps {
+  userRole: "admin" | "hr" | "employee";
+}
+
+export default function AppSidebar({ userRole }: AppSidebarProps) {
   return (
     <Sidebar variant="inset">
       <SidebarHeader>
-        <h1 className="flex items-center gap-2 text-xl font-medium uppercase">
+        <h2 className="flex items-center gap-2 text-xl font-medium uppercase">
           <ChartScatter />
           <span>Staff Portal</span>
-        </h1>
+        </h2>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup className="mt-10">
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {userRole === "admin" &&
+                adminNav.map((item, index) => (
+                  <NavItem item={item} key={index} />
+                ))}
+
+              {userRole === "hr" &&
+                hrNav.map((item, index) => <NavItem item={item} key={index} />)}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
